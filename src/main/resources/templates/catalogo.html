@@ -1,0 +1,224 @@
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>CATALOGO</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"> <!-- Agrega Bootstrap Icons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+        
+        <link rel="shortcut icon" href="/imgEstilosIcon/catalogo.ico" type="image/x-icon">
+        <link rel="stylesheet" href="/css/Catalogo.css">
+    </head>
+    <body>
+
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+            <div class="container-fluid">
+                <!-- Logo -->
+                <a href="/Inicio/inicio" class="navbar-brand">
+                    <img src="/img/Logo.png" alt="Logo" style="height: 50px; max-height: 100%; width: auto;">
+                </a>
+
+                <!-- Botón para dispositivos pequeños -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <!-- Navegación principal centrada -->
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0 align-items-center" style="height: 60px;">
+                        <li class="nav-item">
+                            <a class="nav-link text-white px-3" href="/Inicio/inicio">Inicio</a>
+                        </li>                        
+                        <li class="nav-item">
+                            <a class="nav-link text-white px-3" href="/cliente/loginCliente">Iniciar sesión</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white px-3" href="/CompraDetalle/catalogo">Visualizar Catálogo</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white px-3" href="/compras/mostrarCarrito">Mostrar Carrito</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white px-3" href="/servicios/servicio">Servicio</a>
+                        </li>                        
+                    </ul>
+
+                    <!-- Dropdown del usuario -->
+                    <div class="dropdown">
+                        <a href="#" class="d-flex align-items-center text-decoration-none text-white" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-circle fs-2"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end text-center" aria-labelledby="userMenu">
+                            <!-- Información del usuario -->
+                            <p class="fw-bold m-0">
+                                <span th:text="${session.nombre_cliente}">Nombre del Usuario</span>
+                            </p>
+                            <p class="text-muted m-0">
+                                <span th:text="${session.id_cliente}">DNI del Usuario</span>
+                            </p>
+                            <hr class="dropdown-divider">
+
+                            <!-- Opciones del usuario -->
+                            <a class="dropdown-item" href="#">Configuración</a>
+                            <form action="/cliente/cerrarSesion" method="POST" class="d-inline">
+                                <button type="submit" class="dropdown-item text-danger">Cerrar sesión</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>        
+        
+      
+        <div class="row">
+            <div class="col-sm-12 mt-4">
+                <h2 class="text-center">Lista de Productos</h2>
+                
+                <div class="container mt-4">
+                    <a href="/CompraDetalle/catalogo" class="btn btn-primary me-2 mt-2 mb-2">Mostrar todo los productos</a>
+                </div>
+
+                <div class="container mt-4">
+                    <form th:action="@{/CompraDetalle/buscarCatalogo}" method="get" class="d-flex">
+                        <select name="marca" class="form-select me-6" required>
+                            <option value="" disabled selected>Seleccione una marca</option>
+                            <option value="Apple">Apple</option>
+                            <option value="Samsung">Samsung</option>
+                            <option value="Motorola">Motorola</option>
+                            <option value="Xiomi">Xiomi</option>
+                            <option value="Huawei">Huawei</option>
+                            <option value="Lg">Lg</option>
+                            <option value="Honor">Honor</option>
+                            <option value="Opo">Oppo</option>
+                            <!-- Agrega más opciones según tus marcas disponibles -->
+                        </select>
+                        <button type="submit" class="btn btn-primary">Buscar</button>
+                    </form>
+                </div>
+                
+                
+                <!-- Mostrar mensaje de error si no hay stock -->
+                <div th:if="${error != null}" class="alert alert-danger" style="color: red; font-size: 1.5rem;">
+                    <span th:text="${error}"></span>
+                </div>
+                
+                
+                
+                <div class="row justify-content-center">
+                    <div class="col-sm-3" th:each="producto : ${productos}">
+                        <div class="card mb-4" style="max-width: 300px;"> <!-- Tamaño de tarjeta ajustado -->
+                            <div class="card-header">
+                                <label th:text="${producto.nombre}"></label>
+                            </div>
+                            <div class="card-body">
+                                <img th:src="${producto.rutaImagen}" alt="Imagen del Producto" class="card-img-top" style="max-height: 300px; object-fit: cover;"> <!-- Altura de la imagen ajustada -->
+                                <p class="mt-2"><strong>Descripción:</strong> <span th:text="${producto.descripcion}"></span></p>
+                                <p><strong>Marca:</strong> <span th:text="${producto.marca}"></span></p>
+                                <p><strong>Precio:</strong> <span th:text="'S/ '+${producto.precio}"></span></p>
+                                <p><strong>Stock:</strong> 
+                                    <span th:text="${producto.stock}"
+                                        th:style="${producto.stock < 5} ? 'color: red; font-size: 1.2rem; font-family: fantasy;' " >
+                                </p>
+                            </div>
+                            <div class="card-footer text-center">     
+                                <!-- Formulario para añadir al carrito -->
+                                <form th:action="@{/compras/añadirAlCarrito}" method="post">
+                                    <!-- El id del producto se envía como parámetro oculto -->
+                                    <input type="hidden" name="idProducto" th:value="${producto.id_producto}" />
+                                    <button type="submit" class="btn btn-primary me-2">Añadir al Carrito</button>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        
+        <footer>
+            <div class="contenedor-a">
+                <div class="a-1"><a href="/cliente/nuevo">Registrate para recibir las ofertas recientes</a>
+                </div>
+                <div class="a-2">
+                    <a class="ag" href="https://www.facebook.com/abelpaulo.durandpalacios?locale=es_LA"><i class="fab fa-facebook"></i></a>
+                    <a class="ag" href="https://www.youtube.com/@AbelDurandPalacios"><i class="fab fa-instagram" style="margin: 4px; font-size: 18px;"></i></a>
+                    <a class="ag" href="mailto:abelpaulo.durandpalacios21@gmail.com"><i class="fab fa-twitter" style="margin: 4px; font-size: 18px;"></i> </a>
+                    <a class="ag" href="https://wa.me/922382875"><i class="fab fa-linkedin" style="margin: 4px; font-size: 18px;"></i></a>
+                </div>
+            </div>
+
+            <div class="contenedor-b">
+                <div class="b-1">
+                    <h5 style="color: white;">Empresa</h5>
+                    <ul>
+                        <li><a href="#">Acerca de Movil Tech</a></li>
+                        <li><a href="#">Equipo Directivo</a></li>
+                        <li><a href="#">Responsabilidad corporativa</a></li>
+                        <li><a href="#">Programadores</a></li>
+                        <li><a href="#">Contáctanos</a></li>
+                    </ul>
+                </div>
+                <div class="b-1">
+                    <h5 style="color: white;">Noticia y Eventos</h5>
+                    <ul>
+                        <li><a href="#">Sala de empresa</a></li>
+                        <li><a href="#">Eventos</a></li>
+                        <li><a href="#">Blogs</a></li>
+                        <li><a href="#">Bibloteca multimedia</a></li>
+                        <li><a href="#">Contáctanos</a></li>
+                    </ul>
+                </div>
+                <div class="b-1">
+                    <h5 style="color: white;">Comunidad</h5>
+                    <ul>
+                        <li><a href="#">Asistencia</a></li>
+                        <li><a href="#">Desarrolladores</a></li>
+                        <li><a href="#">Red team</a></li>
+                        <li><a href="#">Desarrolladores</a></li>
+                        <li><a href="#">Contáctanos</a></li>
+                    </ul>
+                </div>
+                <div class="b-1">
+                    <h5 style="color: white;">Socios de negocios</h5>
+                    <ul>
+                        <li><a href="#">Acerca de Movil Tech</a></li>
+                        <li><a href="#">Equipo Directivo</a></li>
+                        <li><a href="#">Responsabilidad corporativa</a></li>
+                        <li><a href="#">Desarrolladores</a></li>
+                        <li><a href="#">Contáctanos</a></li>
+                    </ul>
+                </div>
+                <div class="b-1">
+                    <h5 style="color: white;">Inversionistas</h5>
+                    <ul>
+                        <li><a href="#">Relacion con Inversionistas</a></li>
+                        <li><a href="#">Informaciom financiera</a></li>
+                        <li><a href="#">Directorio</a></li>
+                        <li><a href="#">Pautas de directorio empresarial</a></li>
+                        <li><a href="#">Presentaciones</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="c-1">
+                <div style="margin-bottom:2.5rem;">
+                    Términos y Condiciones | Privacidad | Marcas Comerciales | Transparencia de la cadena de suministro
+                    Competencia Justa y Abierta | Estrategia fiscal del Reino Unido | Política sobre “Cookies” Configuración
+                    de cookies
+                </div>
+                <div>
+                    © 2024 Advanced Micro Devices, Movil Tech.
+                </div>
+            </div>
+        </footer>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+    </body>
+</html>

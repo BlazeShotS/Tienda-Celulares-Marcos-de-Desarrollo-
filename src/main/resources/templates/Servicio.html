@@ -1,0 +1,231 @@
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>SERVICIO</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">        
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+        </script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"> <!-- Agrega Bootstrap Icons -->
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+        <link rel="stylesheet" href="/css/Servicio.css">           
+    </head>
+    <body>
+        
+
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+            <div class="container-fluid">
+                <!-- Logo -->
+                <a href="/Inicio/inicio" class="navbar-brand">
+                    <img src="/img/Logo.png" alt="Logo" style="height: 45px; max-height: 100%; width: auto;">
+                </a>
+
+                <!-- Botón para dispositivos pequeños -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <!-- Navegación principal centrada -->
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0 align-items-center" style="height: 60px;">
+                        <li class="nav-item">
+                            <a class="nav-link text-white px-3" href="/Inicio/inicio">Inicio</a>
+                        </li>                      
+                        <li class="nav-item">
+                            <a class="nav-link text-white px-3" href="/cliente/loginCliente">Iniciar sesión</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white px-3" href="/CompraDetalle/catalogo">Visualizar Catálogo</a>
+                        </li>                        
+                        <li class="nav-item">
+                            <a class="nav-link text-white px-3" href="/servicios/servicio">Servicio</a>
+                        </li>                        
+                    </ul>
+
+
+                    <!-- Dropdown del usuario -->
+                    <div class="dropdown">
+                        <a href="#" class="d-flex align-items-center text-decoration-none text-white" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-circle fs-2"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end text-center" aria-labelledby="userMenu">
+                            <!-- Información del usuario -->
+                            <p class="fw-bold m-0">
+                                <span th:text="${session.nombre_cliente}">Nombre del Usuario</span>
+                            </p>
+                            <p class="text-muted m-0">
+                                <span th:text="${session.id_cliente}">DNI del Usuario</span>
+                            </p>
+                            <hr class="dropdown-divider">
+
+                            <!-- Opciones del usuario -->
+                            <a class="dropdown-item" href="#">Configuración</a>
+                            <form action="/cliente/cerrarSesion" method="POST" class="d-inline">
+                                <button type="submit" class="dropdown-item text-danger">Cerrar sesión</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        
+        
+        
+        
+        <main>
+            <div class="container p-5">
+                <h2 class="text-right m-3">Hola. ¿En que podemos ayudarte?</h2>
+                <hr class="my-4">
+                <h3 class="text-center">Elige el tipo de atencion</h3>
+                <div class="container text-center">
+                    <div class="row">
+                        <!-- Servicio Técnico Button -->
+                        <button class="col bg-light m-3 p-5 borde-color rounded border-ligh border">
+                            <a href="/servicios/nuevo" class="nav-link active">
+                                <div class="contenedor">
+                                    <div class="icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor"
+                                             class="bi bi-person-gear m-2" viewBox="0 0 16 16">
+                                        <path
+                                            d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m.256 7a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1zm3.63-4.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382zM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0" />
+                                        </svg>
+                                    </div>
+                                    <div class="descrip">
+                                        <p>Servicio Tecnico</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </button>
+                        <!--Para Whatsap-->
+                        <button class="col bg-light m-3 p-5 borde-color rounded border-ligh border">
+                            <a href="https://api.whatsapp.com/send/?phone=%2B51953922435&text&type=phone_number&app_absent=0"
+                               class="nav-link active">
+                                <div class="contenedor">
+                                    <div class="icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor"
+                                             class="bi bi-whatsapp m-2" viewBox="0 0 16 16">
+                                        <path
+                                            d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232" />
+                                        </svg>
+                                    </div>
+                                    <div class="descrip">
+                                        <p>Hablanos por Whastapp</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </button>
+                        <!--Para Gmail-->
+                        <button class="col bg-light m-3 p-5 borde-color rounded border-ligh border">
+                            <a href="mailto:abelpaulo.durandpalacios21@gmail.com" class="nav-link active">
+                                <div class="contenedor">
+                                    <div class="icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor"
+                                             class="bi bi-envelope-at m-2" viewBox="0 0 16 16">
+                                        <path
+                                            d="M2 2a2 2 0 0 0-2 2v8.01A2 2 0 0 0 2 14h5.5a.5.5 0 0 0 0-1H2a1 1 0 0 1-.966-.741l5.64-3.471L8 9.583l7-4.2V8.5a.5.5 0 0 0 1 0V4a2 2 0 0 0-2-2zm3.708 6.208L1 11.105V5.383zM1 4.217V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.217l-7 4.2z" />
+                                        <path
+                                            d="M14.247 14.269c1.01 0 1.587-.857 1.587-2.025v-.21C15.834 10.43 14.64 9 12.52 9h-.035C10.42 9 9 10.36 9 12.432v.214C9 14.82 10.438 16 12.358 16h.044c.594 0 1.018-.074 1.237-.175v-.73c-.245.11-.673.18-1.18.18h-.044c-1.334 0-2.571-.788-2.571-2.655v-.157c0-1.657 1.058-2.724 2.64-2.724h.04c1.535 0 2.484 1.05 2.484 2.326v.118c0 .975-.324 1.39-.639 1.39-.232 0-.41-.148-.41-.42v-2.19h-.906v.569h-.03c-.084-.298-.368-.63-.954-.63-.778 0-1.259.555-1.259 1.4v.528c0 .892.49 1.434 1.26 1.434.471 0 .896-.227 1.014-.643h.043c.118.42.617.648 1.12.648m-2.453-1.588v-.227c0-.546.227-.791.573-.791.297 0 .572.192.572.708v.367c0 .573-.253.744-.564.744-.354 0-.581-.215-.581-.8Z" />
+                                        </svg>
+                                    </div>
+                                    <div class="descrip">
+                                        <p>Hablanos por E-mail</p>
+                                    </div>
+                                </div>
+                            </a>
+
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        
+        
+        <footer>
+            <div class="contenedor-a">
+                <div class="a-1"><a href="../IniciarSesion/Registro.html">Registrate para recibir las ofertas recientes</a>
+                </div>
+                <div class="a-2">
+                    <a class="ag" href="#"><i class="fab fa-facebook"></i></a>
+                    <a class="ag" href="#"><i class="fab fa-instagram" style="margin: 4px; font-size: 18px;"></i></a>
+                    <a class="ag" href="#"><i class="fab fa-twitter" style="margin: 4px; font-size: 18px;"></i> </a>
+                    <a class="ag" href="#"><i class="fab fa-linkedin" style="margin: 4px; font-size: 18px;"></i></a>
+                </div>
+            </div>
+
+
+            <div class="contenedor-b">
+                <div class="b-1">
+                    <h5 style="color: white;">Empresa</h5>
+                    <ul>
+                        <li><a href="#">Acerca de Movil Tech</a></li>
+                        <li><a href="#">Equipo Directivo</a></li>
+                        <li><a href="#">Responsabilidad corporativa</a></li>
+                        <li><a href="#">Programadores</a></li>
+                        <li><a href="#">Contáctanos</a></li>
+                    </ul>
+                </div>
+                <div class="b-1">
+                    <h5 style="color: white;">Noticia y Eventos</h5>
+                    <ul>
+                        <li><a href="#">Sala de empresa</a></li>
+                        <li><a href="#">Eventos</a></li>
+                        <li><a href="#">Blogs</a></li>
+                        <li><a href="#">Bibloteca multimedia</a></li>
+                        <li><a href="#">Contáctanos</a></li>
+                    </ul>
+                </div>
+                <div class="b-1">
+                    <h5 style="color: white;">Comunidad</h5>
+                    <ul>
+                        <li><a href="#">Asistencia</a></li>
+                        <li><a href="#">Desarrolladores</a></li>
+                        <li><a href="#">Red team</a></li>
+                        <li><a href="#">Desarrolladores</a></li>
+                        <li><a href="#">Contáctanos</a></li>
+                    </ul>
+                </div>
+                <div class="b-1">
+                    <h5 style="color: white;">Socios de negocios</h5>
+                    <ul>
+                        <li><a href="#">Acerca de Movil Tech</a></li>
+                        <li><a href="#">Equipo Directivo</a></li>
+                        <li><a href="#">Responsabilidad corporativa</a></li>
+                        <li><a href="#">Desarrolladores</a></li>
+                        <li><a href="#">Contáctanos</a></li>
+                    </ul>
+                </div>
+                <div class="b-1">
+                    <h5 style="color: white;">Inversionistas</h5>
+                    <ul>
+                        <li><a href="#">Relacion con Inversionistas</a></li>
+                        <li><a href="#">Informaciom financiera</a></li>
+                        <li><a href="#">Directorio</a></li>
+                        <li><a href="#">Pautas de directorio empresarial</a></li>
+                        <li><a href="#">Presentaciones</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="c-1">
+                <div style="margin-bottom:2.5rem;">
+                    Términos y Condiciones | Privacidad | Marcas Comerciales | Transparencia de la cadena de suministro
+                    Competencia Justa y Abierta | Estrategia fiscal del Reino Unido | Política sobre “Cookies” Configuración
+                    de cookies
+                </div>
+                <div>
+                    © 2024 Advanced Micro Devices, Movil Tech.
+                </div>
+            </div>
+        </footer>
+
+
+
+
+        
+    </body>
+</html>

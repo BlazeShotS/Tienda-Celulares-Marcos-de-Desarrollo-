@@ -1,0 +1,73 @@
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>PANEL ADMINISTRADOR</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"> <!-- Agrega Bootstrap Icons -->
+    </head>
+    <body>
+        
+        <style>
+       body {
+           background-color: #f8f9fa; /* Fondo de la página */
+       }
+       .header {
+           background-color: #343a40; /* Color de fondo del encabezado */
+           color: white; /* Color del texto del encabezado */
+           padding: 20px; /* Espaciado del encabezado */
+       }
+       .logout-btn {
+           position: absolute; /* Posicionamiento absoluto */
+           right: 20px; /* Margen a la derecha */
+           bottom: 20px; /* Margen a la parte inferior */
+       }
+      
+        </style>
+   
+    
+
+        <header class="header">
+            <h1 class="text-center">Bienvenido al Panel, Administrador</h1>
+        </header>
+
+
+        <div class="container main-content text-center" style="margin-top: 150px;">
+            <p class="h3 mb-4">¡Has iniciado sesión exitosamente!</p>
+
+            <div class="row justify-content-center">
+                <div class="col-md-3 mb-2">
+                    <a href="/" class="btn btn-success w-100">Menu Principal</a>
+                </div>
+                <div class="col-md-3 mb-2">
+                    <a href="/administrador/productos/nuevo" class="btn btn-primary w-100">Agregar Producto</a>
+                </div>
+                <div class="col-md-3 mb-2">
+                    <a href="/administrador/productos" class="btn btn-primary w-100">Mostrar Productos</a>
+                </div>
+                <div class="col-md-3 mb-2">
+                    <a href="/CompraDetalle/catalogo" class="btn btn-secondary w-100">Visualizar Catalogo</a>
+                </div>
+            </div>
+
+            <div class="row justify-content-center mt-3">
+                <div class="col-md-3 mb-2">
+                    <a href="/administrador/login" class="btn btn-danger w-100">Cerrar Sesión</a>
+                </div>
+                <div class="col-md-3 mb-2">
+                    <a href="/cliente" class="btn btn-warning w-100">Registros de clientes</a>
+                </div>
+                <div class="col-md-3 mb-2">
+                    <a href="/administrador/productos/backup" class="btn btn-secondary w-100">Realizar Backup</a>
+                </div>
+                <div class="col-md-3 mb-2">
+                    <a href="/compras/BuscarProductsDeClient" class="btn btn-warning w-100">Buscar Productos de clientes</a>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+        
+    </body>
+</html>

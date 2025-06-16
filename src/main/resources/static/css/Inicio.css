@@ -1,0 +1,308 @@
+
+/*---------------------------------- Contenido -----------------------------------------------------*/
+
+/* Para móvil */
+@media (min-width: 1px) and (max-width: 425px) {
+    body {
+        background-color: #000000;
+    }
+
+    .contenedor {
+        background: #ebe4e7;
+        padding: 10px;
+        display: grid; /* Este layout (grid) hace que se cumpla las columnas y filas que el programador ponga y también hace que no se desborde el contenido */
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: auto auto auto auto auto auto;
+        gap: 0.5rem;
+    }
+
+    .contenedor div {
+        background: #202020;
+    }
+
+    .contenedor-imagen {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden; /* Evita que la imagen desborde el contenedor */
+    }
+
+    .contenedor-imagen img {
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: cover; /* Asegura que la imagen cubra el contenedor sin deformarse */
+        transition: transform 0.3s ease; /* Suaviza la transición de escala */
+    }
+
+
+    .contenImagen {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden; /* Evita que la imagen desborde el contenedor */
+    }
+
+    .contenImagen img {
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: cover; /* Asegura que la imagen cubra el contenedor sin deformarse */
+        transition: transform 0.3s ease; /* Suaviza la transición de escala */
+    }
+}
+
+/* Para tablet */
+@media (min-width: 426px) and (max-width: 735px) {
+    body {
+        background-color: #000000;
+    }
+
+    .contenedor {
+        background: #ebe4e7;
+        padding: 25px;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: auto auto auto auto auto auto;
+        gap: 0.5rem;
+    }
+
+    .contenedor div {
+        background: #202020;
+        padding: 1.5rem;
+    }
+
+    .contenedor-imagen {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden; /* Evita que la imagen desborde el contenedor */
+    }
+
+    .contenedor-imagen img {
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: cover; /* Asegura que la imagen cubra el contenedor sin deformarse */
+        transition: transform 0.3s ease; /* Suaviza la transición de escala */
+    }
+
+    .contenImagen {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden; /* Evita que la imagen desborde el contenedor */
+    }
+
+    .contenImagen img {
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: cover; /* Asegura que la imagen cubra el contenedor sin deformarse */
+        transition: transform 0.3s ease; /* Suaviza la transición de escala */
+    }
+    
+
+
+}
+
+/* Para escritorio */
+@media (min-width: 736px) {
+    body {
+        background-color: #000000;
+    }
+
+    .contenedor {
+        background: #ebe4e7;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto auto auto;
+    }
+
+    .contenedor div {
+        background: #202020;
+    }
+
+    .contenedor-imagen {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden; /* Evita que la imagen desborde el contenedor */
+    }
+
+    .contenedor-imagen img {
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: cover; /* Asegura que la imagen cubra el contenedor sin deformarse */
+        transition: transform 0.3s ease; /* Suaviza la transición de escala */
+    }
+
+
+    .contenImagen {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden; /* Evita que la imagen desborde el contenedor */
+    }
+
+    .contenImagen img {
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: cover; /* Asegura que la imagen cubra el contenedor sin deformarse */
+        transition: transform 0.3s ease; /* Suaviza la transición de escala */
+    }
+}
+
+.contenido {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column; /* Alinea los elementos hijos en una columna */
+    justify-content: center; /* Centra verticalmente */
+    align-items: center; /* Centra horizontalmente */
+    text-align: center; /* Alinea el texto en el centro */
+    transition: all 0.3s ease; /* Cuando aplique el efecto hover, el efecto será más suave y no brusco como una transición */
+}
+
+.contenido h1, h3, p {
+    font-family: 'Times New Roman', Times, serif;
+    color: white;
+}
+
+.contenido h3 {
+    font-size: 20px;
+}
+
+.contenido:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Sombra más grande para dar efecto de elevación */
+}
+
+/*----------------------- Footer -------------------------*/
+
+footer {
+    background-color: #000000;
+    width: 100%;
+    max-width: 100%;
+    min-height: auto; /* Deja que la altura se ajuste al contenido */
+    background-size: cover; /* Cubre todo el contenido */
+    padding: 40px 0;
+}
+
+.contenedor-a {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
+    padding: 40px;
+    flex-wrap: wrap; /* Pasan a la siguiente línea cada vez que la página se va reduciendo */
+}
+
+.a-1 {
+    color: white;
+    padding: 22px 50px;
+    background: linear-gradient(to right, #202020, grey);
+    transition: all 0.3s ease; /* Cuando aplique el efecto hover, el efecto será más suave y no brusco como una transición */
+}
+
+.a-1:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Sombra más grande para dar efecto de elevación */
+}
+
+.a-1 a {
+    text-decoration: none;
+    color: white;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.a-2 {
+    width: 45%;
+    padding: 12px 0px;
+    text-decoration: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-wrap: wrap; /* Pasan a la siguiente línea cada vez que la página se va reduciendo */
+}
+
+.ag {
+    text-decoration: none;
+    color: white;
+}
+
+/* Media query para pantallas más pequeñas */
+@media (max-width: 768px) {
+    .a-2 {
+        width: 100%; /* En pantallas más pequeñas, la fila de redes sociales ocupará todo el ancho */
+        justify-content: center;
+    }
+
+    .a-2 a {
+        margin: 12px 1rem;
+    }
+}
+
+/*--------------------*/
+
+.contenedor-b {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 1rem 2rem;
+    flex-wrap: wrap; /* Pasan a la siguiente línea cada vez que la página se va reduciendo */
+}
+
+li a {
+    text-decoration: none;
+    color: grey;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.b-1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-basis: 20%; /* Cada columna ocupará el 20% del ancho en pantallas grandes */
+    margin-bottom: 20px;
+}
+
+.b-1 li {
+    margin: 1.5rem;
+}
+
+/* Media query para pantallas pequeñas */
+@media (max-width: 768px) {
+    .contenedor-b {
+        margin: 1rem;
+        justify-content: center;
+    }
+
+    .b-1 {
+        flex-basis: 100%; /* Las columnas ocuparán todo el ancho en pantallas pequeñas */
+        margin-bottom: 20px;
+    }
+}
+
+.c-1 {
+    margin: 2rem;
+    color: grey;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}

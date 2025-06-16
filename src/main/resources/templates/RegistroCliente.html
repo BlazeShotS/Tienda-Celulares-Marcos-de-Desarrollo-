@@ -1,0 +1,231 @@
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>REGISTRO</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"> <!-- Agrega Bootstrap Icons -->
+
+        <link rel="shortcut icon" href="/imgEstilosIcon/registro.ico" type="image/x-icon">
+        <link rel="stylesheet" href="/css/RegistrarseClient.css">
+    </head>
+    <body>
+
+         <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+            <div class="container-fluid">
+                <!-- Logo -->
+                <a href="/Inicio/inicio" class="navbar-brand">
+                    <img src="/img/Logo.png" alt="Logo" style="height: 45px; max-height: 100%; width: auto;">
+                </a>
+
+                <!-- Botón para dispositivos pequeños -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <!-- Navegación principal centrada -->
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0 align-items-center" style="height: 60px;">
+                        <li class="nav-item">
+                            <a class="nav-link text-white px-3" href="/Inicio/inicio">Inicio</a>
+                        </li>                      
+                        <li class="nav-item">
+                            <a class="nav-link text-white px-3" href="/cliente/loginCliente">Iniciar sesión</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white px-3" href="/CompraDetalle/catalogo">Visualizar Catálogo</a>
+                        </li>                        
+                        <li class="nav-item">
+                            <a class="nav-link text-white px-3" href="/servicios/servicio">Servicio</a>
+                        </li>                        
+                    </ul>
+
+
+                    <!-- Dropdown del usuario -->
+                    <div class="dropdown">
+                        <a href="#" class="d-flex align-items-center text-decoration-none text-white" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-circle fs-2"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end text-center" aria-labelledby="userMenu">
+                            <!-- Información del usuario -->
+                            <p class="fw-bold m-0">
+                                <span th:text="${session.nombre_cliente}">Nombre del Usuario</span>
+                            </p>
+                            <p class="text-muted m-0">
+                                <span th:text="${session.id_cliente}">DNI del Usuario</span>
+                            </p>
+                            <hr class="dropdown-divider">
+
+                            <!-- Opciones del usuario -->
+                            <a class="dropdown-item" href="#">Configuración</a>
+                            <form action="/cliente/cerrarSesion" method="POST" class="d-inline">
+                                <button type="submit" class="dropdown-item text-danger">Cerrar sesión</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+
+
+        
+        
+        <main class="container my-5">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <form th:action="@{/cliente/guardar}" th:object="${cliente}" method="post" enctype="multipart/form-data">
+                        <div class="card">
+                            <div class="card-header text-center">
+                                <img src="/imgEstilosIcon/imagen_1.png" alt="Logo" width="50" class="me-2">
+                                Registrarse
+                                <img src="/imgEstilosIcon/imagen_2.png" alt="Usuario" width="50" class="ms-2">
+                            </div>
+                            <div class="card-body">
+                                
+                                <div class="mb-3">
+                                    <label for="nombre" class="form-label">Nombre</label>
+                                    <input type="text" class="form-control" th:field="*{nombre}" id="nombre"  placeholder="Ingrese su nombre" required>
+                                </div>
+                                <p th:if="${#fields.hasErrors('nombre')}"                       
+                                   th:errors="*{nombre}" style="color: red;"> </p>
+
+                                
+                                 <div class="mb-3">
+                                    <label for="apellido" class="form-label">Apellido</label>
+                                    <input type="text" class="form-control" th:field="*{apellido}" id="apellido" placeholder="Ingrese su apellido" required>
+                                </div>
+                                <p th:if="${#fields.hasErrors('apellido')}"                       
+                                   th:errors="*{apellido}" style="color: red;"> </p>
+                                
+                                
+                                <div class="mb-3">
+                                    <label for="telefono" class="form-label">N° de Celular:</label>
+                                    <input type="text" class="form-control" th:field="*{telefono}" id="telefono" placeholder="Ingrese su número de Celular" required>
+                                </div>
+                                  <p th:if="${#fields.hasErrors('telefono')}"                       
+                                   th:errors="*{telefono}" style="color: red;"> </p>
+                                
+                               
+                                <div class="mb-3">
+                                    <label for="correo" class="form-label">Correo:</label>
+                                    <input type="email" class="form-control"  th:field="*{email}" id="email" placeholder="Ingrese su correo electrónico" required>
+                                </div>
+                                  <p th:if="${#fields.hasErrors('email')}"                       
+                                   th:errors="*{email}" style="color: red;"> </p>
+                                  
+                                
+                                <div class="mb-3">
+                                    <label for="idCliente" class="form-label">Id(DNI):</label>
+                                    <input type="text" class="form-control" th:field="*{idCliente}" id="idCliente"   placeholder="Ingrese sus Dni" required>
+                                </div>
+                                   <p th:if="${#fields.hasErrors('idCliente')}"                       
+                                   th:errors="*{idCliente}" style="color: red;"> </p>
+                                  
+                                  
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Password:</label>
+                                    <input type="text" class="form-control" th:field="*{password}" id="password" placeholder="Ingrese sus Contraseña" required>
+                                </div>
+                                   <p th:if="${#fields.hasErrors('password')}"                       
+                                   th:errors="*{password}" style="color: red;"> </p>
+                                
+                                
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary">Registrarse</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+
+        
+        
+        
+        <footer>
+            <div class="contenedor-a">
+                <div class="a-1"><a href="/cliente/nuevo">Registrate para recibir las ofertas recientes</a>
+                </div>
+                <div class="a-2">
+                    <a class="ag" href="#"><i class="fab fa-facebook"></i></a>
+                    <a class="ag" href="#"><i class="fab fa-instagram" style="margin: 4px; font-size: 18px;"></i></a>
+                    <a class="ag" href="#"><i class="fab fa-twitter" style="margin: 4px; font-size: 18px;"></i> </a>
+                    <a class="ag" href="#"><i class="fab fa-linkedin" style="margin: 4px; font-size: 18px;"></i></a>
+                </div>
+            </div>
+
+            <div class="contenedor-b">
+                <div class="b-1">
+                    <h5 style="color: white;">Empresa</h5>
+                    <ul>
+                        <li><a href="#">Acerca de Movil Tech</a></li>
+                        <li><a href="#">Equipo Directivo</a></li>
+                        <li><a href="#">Responsabilidad corporativa</a></li>
+                        <li><a href="#">Programadores</a></li>
+                        <li><a href="#">Contáctanos</a></li>
+                    </ul>
+                </div>
+                <div class="b-1">
+                    <h5 style="color: white;">Noticia y Eventos</h5>
+                    <ul>
+                        <li><a href="#">Sala de empresa</a></li>
+                        <li><a href="#">Eventos</a></li>
+                        <li><a href="#">Blogs</a></li>
+                        <li><a href="#">Bibloteca multimedia</a></li>
+                        <li><a href="#">Contáctanos</a></li>
+                    </ul>
+                </div>
+                <div class="b-1">
+                    <h5 style="color: white;">Comunidad</h5>
+                    <ul>
+                        <li><a href="#">Asistencia</a></li>
+                        <li><a href="#">Desarrolladores</a></li>
+                        <li><a href="#">Red team</a></li>
+                        <li><a href="#">Desarrolladores</a></li>
+                        <li><a href="#">Contáctanos</a></li>
+                    </ul>
+                </div>
+                <div class="b-1">
+                    <h5 style="color: white;">Socios de negocios</h5>
+                    <ul>
+                        <li><a href="#">Acerca de Movil Tech</a></li>
+                        <li><a href="#">Equipo Directivo</a></li>
+                        <li><a href="#">Responsabilidad corporativa</a></li>
+                        <li><a href="#">Desarrolladores</a></li>
+                        <li><a href="#">Contáctanos</a></li>
+                    </ul>
+                </div>
+                <div class="b-1">
+                    <h5 style="color: white;">Inversionistas</h5>
+                    <ul>
+                        <li><a href="#">Relacion con Inversionistas</a></li>
+                        <li><a href="#">Informaciom financiera</a></li>
+                        <li><a href="#">Directorio</a></li>
+                        <li><a href="#">Pautas de directorio empresarial</a></li>
+                        <li><a href="#">Presentaciones</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="c-1">
+                <div style="margin-bottom:2.5rem;">
+                    Términos y Condiciones | Privacidad | Marcas Comerciales | Transparencia de la cadena de suministro
+                    Competencia Justa y Abierta | Estrategia fiscal del Reino Unido | Política sobre “Cookies” Configuración
+                    de cookies
+                </div>
+                <div>
+                    © 2024 Advanced Micro Devices, Movil Tech.
+                </div>
+            </div>
+        </footer>
+
+        
+        
+        
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    </body>
+</html>

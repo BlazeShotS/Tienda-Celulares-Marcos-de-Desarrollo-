@@ -1,0 +1,232 @@
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Carrito de compras</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"> <!-- Agrega Bootstrap Icons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+        
+        <link rel="shortcut icon" href="/imgEstilosIcon/comprar.ico" type="image/x-icon">
+        <link rel="stylesheet" href="/css/mostrarCarrito.css">
+    </head>
+    <body>
+        
+        
+        
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+            <div class="container-fluid">
+                <!-- Logo -->
+                <a href="/Inicio/inicio" class="navbar-brand">
+                    <img src="/img/Logo.png" alt="Logo" style="height: 50px; max-height: 100%; width: auto;">
+                </a>
+
+                <!-- Botón para dispositivos pequeños -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <!-- Navegación principal centrada -->
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0 align-items-center" style="height: 60px;">
+                        <li class="nav-item">
+                            <a class="nav-link text-white px-3" href="/Inicio/inicio">Inicio</a>
+                        </li>                        
+                        <li class="nav-item">
+                            <a class="nav-link text-white px-3" href="/cliente/loginCliente">Iniciar sesión</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white px-3" href="/CompraDetalle/catalogo">Visualizar Catálogo</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white px-3" href="/compras/mostrarCarrito">Mostrar Carrito</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white px-3" href="/servicios/servicio">Servicio</a>
+                        </li>                        
+                    </ul>
+
+                    <!-- Dropdown del usuario -->
+                    <div class="dropdown">
+                        <a href="#" class="d-flex align-items-center text-decoration-none text-white" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-circle fs-2"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end text-center" aria-labelledby="userMenu">
+                            <!-- Información del usuario -->
+                            <p class="fw-bold m-0">
+                                <span th:text="${session.nombre_cliente}">Nombre del Usuario</span>
+                            </p>
+                            <p class="text-muted m-0">
+                                <span th:text="${session.id_cliente}">DNI del Usuario</span>
+                            </p>
+                            <hr class="dropdown-divider">
+
+                            <!-- Opciones del usuario -->
+                            <a class="dropdown-item" href="#">Configuración</a>
+                            <form action="/cliente/cerrarSesion" method="POST" class="d-inline">
+                                <button type="submit" class="dropdown-item text-danger">Cerrar sesión</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>        
+
+        
+        
+        <div class="container my-5">
+            <h1 class="text-center mb-4">Carrito de Compras</h1>
+
+            <!-- Verificar si hay productos en el carrito -->
+            <div>
+                <table class="table table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Producto</th>
+                            <th>Imagen</th>
+                            <th>Cantidad</th>
+                            <th>Precio Unitario</th>
+                            <th>Subtotal</th>
+                            <th>Accion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Iterar sobre los productos añadidos al carrito -->
+                        <!-- Verificar si existen detalles en la compra -->
+                    <th:block th:if="${compra.detalles != null and !compra.detalles.isEmpty()}">
+                        <!-- Iterar sobre los detalles de la compra -->
+                        <th:block th:each="detalle : ${compra.detalles}">
+                            <tr>
+                                <td th:text="${detalle.producto.nombre}"></td>
+                                <td><img th:src="@{${detalle.producto.rutaImagen}}" alt="Imagen del producto" style="width: 100px; height: auto;" /></td>
+                                <td th:text="${detalle.cantidad}"></td>
+                                <td th:text="${detalle.precioUnitario}"></td>
+                                <td th:text="${detalle.subtotal}"></td>
+
+                                <td>
+                                    <!-- Crear un enlace para eliminar el detalle del carrito -->
+                                    <a th:href="@{/compras/eliminarDelCarrito/{idProducto}(idProducto=${detalle.producto.id_producto})}" 
+                                       class="btn btn-danger btn-sm" 
+                                       onclick="return confirm('¿Estás seguro de eliminar este producto?');">
+                                        Eliminar
+                                    </a>
+                                </td>
+                            </tr>
+                        </th:block>
+                    </th:block>
+                    </tbody>
+                </table>
+                
+                <th:block th:if="${compra.detalles == null or compra.detalles.isEmpty()}">
+                    <tr>
+                        <td colspan="6" class="text-center">Tu carrito está vacío.</td>
+                    </tr>
+                </th:block>
+
+                
+                <!-- Mostrar total de la compra -->
+                <h3 class="text-end">Total: <span th:text="${compra.total}"></span></h3>
+            </div>
+
+            <!-- Botón para proceder con la compra -->
+            <div class="text-center mt-4">
+                <form action="/compras/comprar" method="post">
+                    <button type="submit" class="btn btn-success">Comprar</button>
+                </form>
+            </div>
+
+            <!-- Enlace para volver al catálogo -->
+            <div class="text-center mt-3">
+                <a href="/CompraDetalle/catalogo" class="btn btn-secondary">Volver al catálogo</a>
+            </div>
+        </div>
+
+        
+        
+        <footer>
+            <div class="contenedor-a">
+                <div class="a-1"><a href="/cliente/nuevo">Registrate para recibir las ofertas recientes</a>
+                </div>
+                <div class="a-2">
+                    <a class="ag" href="#"><i class="fab fa-facebook"></i></a>
+                    <a class="ag" href="#"><i class="fab fa-instagram" style="margin: 4px; font-size: 18px;"></i></a>
+                    <a class="ag" href="#"><i class="fab fa-twitter" style="margin: 4px; font-size: 18px;"></i> </a>
+                    <a class="ag" href="#"><i class="fab fa-linkedin" style="margin: 4px; font-size: 18px;"></i></a>
+                </div>
+            </div>
+
+            <div class="contenedor-b">
+                <div class="b-1">
+                    <h5 style="color: white;">Empresa</h5>
+                    <ul>
+                        <li><a href="#">Acerca de Movil Tech</a></li>
+                        <li><a href="#">Equipo Directivo</a></li>
+                        <li><a href="#">Responsabilidad corporativa</a></li>
+                        <li><a href="#">Programadores</a></li>
+                        <li><a href="#">Contáctanos</a></li>
+                    </ul>
+                </div>
+                <div class="b-1">
+                    <h5 style="color: white;">Noticia y Eventos</h5>
+                    <ul>
+                        <li><a href="#">Sala de empresa</a></li>
+                        <li><a href="#">Eventos</a></li>
+                        <li><a href="#">Blogs</a></li>
+                        <li><a href="#">Bibloteca multimedia</a></li>
+                        <li><a href="#">Contáctanos</a></li>
+                    </ul>
+                </div>
+                <div class="b-1">
+                    <h5 style="color: white;">Comunidad</h5>
+                    <ul>
+                        <li><a href="#">Asistencia</a></li>
+                        <li><a href="#">Desarrolladores</a></li>
+                        <li><a href="#">Red team</a></li>
+                        <li><a href="#">Desarrolladores</a></li>
+                        <li><a href="#">Contáctanos</a></li>
+                    </ul>
+                </div>
+                <div class="b-1">
+                    <h5 style="color: white;">Socios de negocios</h5>
+                    <ul>
+                        <li><a href="#">Acerca de Movil Tech</a></li>
+                        <li><a href="#">Equipo Directivo</a></li>
+                        <li><a href="#">Responsabilidad corporativa</a></li>
+                        <li><a href="#">Desarrolladores</a></li>
+                        <li><a href="#">Contáctanos</a></li>
+                    </ul>
+                </div>
+                <div class="b-1">
+                    <h5 style="color: white;">Inversionistas</h5>
+                    <ul>
+                        <li><a href="#">Relacion con Inversionistas</a></li>
+                        <li><a href="#">Informaciom financiera</a></li>
+                        <li><a href="#">Directorio</a></li>
+                        <li><a href="#">Pautas de directorio empresarial</a></li>
+                        <li><a href="#">Presentaciones</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="c-1">
+                <div style="margin-bottom:2.5rem;">
+                    Términos y Condiciones | Privacidad | Marcas Comerciales | Transparencia de la cadena de suministro
+                    Competencia Justa y Abierta | Estrategia fiscal del Reino Unido | Política sobre “Cookies” Configuración
+                    de cookies
+                </div>
+                <div>
+                    © 2024 Advanced Micro Devices, Movil Tech.
+                </div>
+            </div>
+        </footer>
+
+        
+        
+        
+        <!-- Agregar Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka1K0Qlmwuyhz3tXOrJr7B7vZCZ3lFxO4+XwpJh5l8APh3DgfFzNpxBh0+zKQFgf" crossorigin="anonymous"></script>
+
+        
+        
+    </body>
+</html>
